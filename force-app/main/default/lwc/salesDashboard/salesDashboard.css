@@ -1,0 +1,15 @@
+.filter-container {
+    padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.metric-green {
+    color: #2e844a;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.metric-orange {
+    color: #dd7a01;
+    font-weight: bold;
+    font-size: 1.5rem;
+}

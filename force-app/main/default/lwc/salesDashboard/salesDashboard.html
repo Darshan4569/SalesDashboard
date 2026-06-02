@@ -6,6 +6,138 @@
         </h1>
     </div>
 
+<lightning-card>
+
+    <div class="filter-container">
+
+        <template if:false={showCustomDates}>
+
+            <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+
+                <div class="slds-col slds-size_3-of-12">
+
+                    <lightning-combobox
+                        label="Date Range"
+                        value={dateRange}
+                        options={dateRangeOptions}
+                        onchange={handleDateRangeChange}>
+                    </lightning-combobox>
+
+                </div>
+
+                <div class="slds-col slds-size_3-of-12">
+
+                    <lightning-combobox
+                        label="Stage"
+                        value={selectedStage}
+                        options={stageOptions}
+                        onchange={handleStageChange}>
+                    </lightning-combobox>
+
+                </div>
+
+                <div class="slds-col slds-size_3-of-12">
+
+                    <lightning-combobox
+                        label="Owner"
+                        value={selectedOwner}
+                        options={ownerOptions}
+                        onchange={handleOwnerChange}>
+                    </lightning-combobox>
+
+                </div>
+
+                <div class="slds-col slds-size_3-of-12">
+
+                    <lightning-button
+                        variant="brand"
+                        label="Refresh Dashboard"
+                        onclick={handleRefresh}>
+                    </lightning-button>
+
+                </div>
+
+            </div>
+
+        </template>
+
+        <template if:true={showCustomDates}>
+
+            <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+
+                <div class="slds-col slds-size_2-of-12">
+
+                    <lightning-combobox
+                        label="Date Range"
+                        value={dateRange}
+                        options={dateRangeOptions}
+                        onchange={handleDateRangeChange}>
+                    </lightning-combobox>
+
+                </div>
+
+                <div class="slds-col slds-size_2-of-12">
+
+                    <lightning-input
+                        type="date"
+                        label="Start Date"
+                        value={startDate}
+                        onchange={handleStartDate}>
+                    </lightning-input>
+
+                </div>
+
+                <div class="slds-col slds-size_2-of-12">
+
+                    <lightning-input
+                        type="date"
+                        label="End Date"
+                        value={endDate}
+                        onchange={handleEndDate}>
+                    </lightning-input>
+
+                </div>
+
+                <div class="slds-col slds-size_2-of-12">
+
+                    <lightning-combobox
+                        label="Stage"
+                        value={selectedStage}
+                        options={stageOptions}
+                        onchange={handleStageChange}>
+                    </lightning-combobox>
+
+                </div>
+
+                <div class="slds-col slds-size_2-of-12">
+
+                    <lightning-combobox
+                        label="Owner"
+                        value={selectedOwner}
+                        options={ownerOptions}
+                        onchange={handleOwnerChange}>
+                    </lightning-combobox>
+
+                </div>
+
+                <div class="slds-col slds-size_2-of-12">
+
+                    <lightning-button
+                        variant="brand"
+                        label="Refresh Dashboard"
+                        onclick={handleRefresh}>
+                    </lightning-button>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</lightning-card>
+
     <div class="slds-grid slds-wrap slds-gutters slds-m-top_medium">
 
         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
@@ -28,7 +160,7 @@
 
         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
             <c-metric-card>
-                <h2 class="slds-text-heading_medium">
+                <h2 class={revenueClass}>
                     ${pipelineAmount}
                 </h2>
                 <p>Pipeline Revenue</p>
@@ -36,11 +168,21 @@
         </div>
 
     </div>
-    
+
     <div class="slds-m-top_large">
+
         <c-stage-chart
             stage-counts={stageCounts}>
         </c-stage-chart>
+
+        <c-revenue-chart
+            revenue-data={revenueByMonth}>
+        </c-revenue-chart>
+
+        <c-account-map
+            accounts={accounts}>
+        </c-account-map>
+
     </div>
 
 </template>

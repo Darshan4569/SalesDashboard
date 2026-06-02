@@ -99,14 +99,11 @@ public with sharing class SalesDashboardController {
                 BillingCity,
                 BillingState,
                 BillingPostalCode,
-                BillingCountry,
-                BillingLatitude,
-                BillingLongitude
+                BillingCountry
 
             FROM Account
 
-            WHERE BillingLatitude != null
-            AND BillingLongitude != null
+            WHERE BillingCity != null
 
             LIMIT 500
         ];
@@ -145,4 +142,50 @@ public with sharing class SalesDashboardController {
         @AuraEnabled
         public Map<String,Decimal> revenueByMonth;
     }
+
+
+        @AuraEnabled(cacheable=true)
+        public static List<SelectOptionWrapper> getOwners(){
+
+            List<SelectOptionWrapper> results =
+                new List<SelectOptionWrapper>();
+
+            results.add(
+                new SelectOptionWrapper('', 'All Owners')
+            );
+
+            for(User u : [
+                SELECT Id, Name
+                FROM User
+                WHERE IsActive = true
+                ORDER BY Name
+            ]){
+
+                results.add(
+                    new SelectOptionWrapper(
+                        u.Id,
+                        u.Name
+                    )
+                );
+            }
+
+            return results;
+        }
+
+        public class SelectOptionWrapper{
+
+            @AuraEnabled
+            public String value;
+
+            @AuraEnabled
+            public String label;
+
+            public SelectOptionWrapper(
+                String value,
+                String label
+            ){
+                this.value = value;
+                this.label = label;
+            }
+        }
 }
